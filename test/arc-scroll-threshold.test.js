@@ -37,11 +37,13 @@ describe('<arc-scroll-threshold>', () => {
     });
 
     afterEach(function() {
-      scrollThreshold.clearTriggers();
+      scrollThreshold._upperTriggered = false;
+      scrollThreshold._lowerTriggered = false;
       scrollThreshold._scrollTop = 0;
     });
 
-    it('default', function() {
+    it('default', async function() {
+      await aTimeout(20);
       assert.equal(
         scrollThreshold._defaultScrollTarget,
         scrollThreshold,
@@ -171,7 +173,8 @@ describe('<arc-scroll-threshold>', () => {
     });
 
     afterEach(function() {
-      scrollThreshold.clearTriggers();
+      scrollThreshold._upperTriggered = false;
+      scrollThreshold._lowerTriggered = false;
       scrollThreshold._scrollTop = 0;
     });
 
