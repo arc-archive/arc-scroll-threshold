@@ -1,5 +1,4 @@
 import { fixture, assert, aTimeout } from '@open-wc/testing';
-import { a11ySuite } from '@advanced-rest-client/a11y-suite/index.js';
 import '../arc-scroll-threshold.js';
 
 const style = document.createElement('style');
@@ -242,7 +241,16 @@ describe('<arc-scroll-threshold>', () => {
     });
   });
 
-  a11ySuite('Normal state', `<arc-scroll-threshold id="scrollingRegion">
-    <div class="content"></div>
-  </arc-scroll-threshold>`);
+  describe('a11y', () => {
+    async function a11yFixture() {
+      return (await fixture(`<arc-scroll-threshold id="scrollingRegion">
+        <div class="content"></div>
+      </arc-scroll-threshold>`));
+    }
+
+    it('is accessible', async () => {
+      const element = await a11yFixture();
+      await assert.isAccessible(element);
+    });
+  });
 });

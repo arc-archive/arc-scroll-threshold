@@ -9,7 +9,7 @@ import { ArcScrollTargetMixin } from '@advanced-rest-client/arc-scroll-target-mi
  * @demo demo/scrolling-region-decoupled.html Scroll region decoupled
  * @memberof UiElements
  */
-export default class ArcScrollThreshold extends ArcScrollTargetMixin(LitElement) {
+export class ArcScrollThreshold extends ArcScrollTargetMixin(LitElement) {
   static get styles() {
     return css`
       :host {
