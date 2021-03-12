@@ -77,7 +77,7 @@ customElements.define('sample-element', SampleElement);
 </script>
 ```
 
-### Development
+## Development
 
 ```sh
 git clone https://github.com/@advanced-rest-client/arc-scroll-threshold
@@ -92,6 +92,7 @@ npm start
 ```
 
 ### Running the tests
+
 ```sh
 npm test
 ```

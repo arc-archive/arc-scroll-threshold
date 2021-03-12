@@ -68,7 +68,7 @@ class ScrollingRegionDecoupledDemo extends LitElement {
       <div class="loader">Fetching new items...</div>
     </div>
     <!-- scroll-target uses #scrollingRegion -->
-    <arc-scroll-threshold lowerthreshold="500" @lower-threshold="${this.loadMoreData}" scroll-target="scrollingRegion">
+    <arc-scroll-threshold lowerThreshold="500" @lower-threshold="${this.loadMoreData}" scrollTarget="scrollingRegion">
     </arc-scroll-threshold>`;
   }
 }
