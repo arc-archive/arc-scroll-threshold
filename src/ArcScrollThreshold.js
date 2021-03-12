@@ -2,19 +2,10 @@ import { html, css, LitElement } from 'lit-element';
 import { ArcScrollTargetMixin } from '@advanced-rest-client/arc-scroll-target-mixin';
 /**
  * A port of `iron-scroll-threshold` element.
- *
- * @customElement
- * @demo demo/index.html Document scroll
- * @demo demo/scrolling-region.html Scroll region
- * @demo demo/scrolling-region-decoupled.html Scroll region decoupled
- * @memberof UiElements
  */
 export class ArcScrollThreshold extends ArcScrollTargetMixin(LitElement) {
   static get styles() {
-    return css`
-      :host {
-        display: block;
-      }`;
+    return css`:host {display: block;}`;
   }
 
   static get properties() {
@@ -35,16 +26,18 @@ export class ArcScrollThreshold extends ArcScrollTargetMixin(LitElement) {
       horizontal: { type: Boolean }
     };
   }
+
   /**
    * Read-only value that tracks the triggered state of the upper threshold.
-   * @return {Boolean}
+   * @returns {boolean}
    */
   get upperTriggered() {
     return this._upperTriggered;
   }
+
   /**
    * Read-only value that tracks the triggered state of the lower threshold.
-   * @return {Boolean}
+   * @returns {boolean}
    */
   get lowerTriggered() {
     return this._lowerTriggered;
@@ -96,22 +89,25 @@ export class ArcScrollThreshold extends ArcScrollTargetMixin(LitElement) {
   get _scrollDebouncer() {
     return this.__scrollDebouncer || 200;
   }
+
   /**
    * Sets value for scroll debounce timeout.
-   * @param {Nymber} value Scroll computation timeout value.
+   * @param {Number} value Scroll computation timeout value.
    */
   set _scrollDebouncer(value) {
     this.__scrollDebouncer = value;
   }
+
   /**
-   * @return {Function|null|undefined} Prefiously registered callback for `lower-threshold`.
+   * @return {EventListener|null|undefined} Previously registered callback for `lower-threshold`.
    */
   get onlowerthreshold() {
     return this._onlowerthreshold;
   }
+
   /**
    * Registers event listener for `lower-threshold` event.
-   * @param {?Function} value Function to register. Pass null or undefined to clear
+   * @param {EventListener} value Function to register. Pass null or undefined to clear
    * registered function.
    */
   set onlowerthreshold(value) {
@@ -125,15 +121,17 @@ export class ArcScrollThreshold extends ArcScrollTargetMixin(LitElement) {
     this._onlowerthreshold = value;
     this.addEventListener('lower-threshold', value);
   }
+
   /**
-   * @return {Function|null|undefined} Prefiously registered callback for `upper-threshold`.
+   * @return {EventListener|null|undefined} Previously registered callback for `upper-threshold`.
    */
   get onupperthreshold() {
     return this._onupperthreshold;
   }
+
   /**
    * Registers event listener for `upper-threshold` event.
-   * @param {?Function} value Function to register. Pass null or undefined to clear
+   * @param {EventListener} value Function to register. Pass null or undefined to clear
    * registered function.
    */
   set onupperthreshold(value) {
@@ -173,9 +171,9 @@ export class ArcScrollThreshold extends ArcScrollTargetMixin(LitElement) {
     if (super.disconnectedCallback) {
       super.disconnectedCallback();
     }
-    if (this._thesholdDebouncer) {
-      clearTimeout(this._thesholdDebouncer);
-      this._thesholdDebouncer = undefined;
+    if (this._thresholdDebouncer) {
+      clearTimeout(this._thresholdDebouncer);
+      this._thresholdDebouncer = undefined;
     }
     if (this.__initDebouncer) {
       clearTimeout(this.__initDebouncer);
@@ -188,21 +186,22 @@ export class ArcScrollThreshold extends ArcScrollTargetMixin(LitElement) {
   }
 
   _scrollTargetChanged(value) {
-    super._scrollTargetChanged(value, this.isAttached);
+    super._scrollTargetChanged(value);
     this._setOverflow(value);
   }
 
   _setOverflow(scrollTarget) {
     this.style.overflow = scrollTarget === this ? 'auto' : '';
+    // @ts-ignore
     this.style.webkitOverflowScrolling = scrollTarget === this ? 'touch' : '';
   }
 
   _scrollHandler() {
-    if (this._thesholdDebouncer) {
+    if (this._thresholdDebouncer) {
       return;
     }
-    this._thesholdDebouncer = setTimeout(() => {
-      this._thesholdDebouncer = undefined;
+    this._thresholdDebouncer = setTimeout(() => {
+      this._thresholdDebouncer = undefined;
       this.checkScrollThresholds();
     }, this._scrollDebouncer);
   }
@@ -217,6 +216,7 @@ export class ArcScrollThreshold extends ArcScrollTargetMixin(LitElement) {
       this.checkScrollThresholds();
     });
   }
+
   /**
    * Checks the scroll thresholds.
    * This method is automatically called by iron-scroll-threshold.
@@ -224,13 +224,14 @@ export class ArcScrollThreshold extends ArcScrollTargetMixin(LitElement) {
    * @method checkScrollThresholds
    */
   checkScrollThresholds() {
-    if (!this.scrollTarget || (this.lowerTriggered && this.upperTriggered)) {
+    const scrollElement = /** @type HTMLElement */ (this.scrollTarget);
+    if (!scrollElement || (this.lowerTriggered && this.upperTriggered)) {
       return;
     }
     const upperScrollValue = this.horizontal ? this._scrollLeft : this._scrollTop;
     const lowerScrollValue = this.horizontal ?
-      this.scrollTarget.scrollWidth - this._scrollTargetWidth - this._scrollLeft :
-      this.scrollTarget.scrollHeight - this._scrollTargetHeight - this._scrollTop;
+      scrollElement.scrollWidth - this._scrollTargetWidth - this._scrollLeft :
+      scrollElement.scrollHeight - this._scrollTargetHeight - this._scrollTop;
 
     // Detect upper threshold
     if (upperScrollValue <= this.upperThreshold && !this.upperTriggered) {
@@ -243,6 +244,7 @@ export class ArcScrollThreshold extends ArcScrollTargetMixin(LitElement) {
       this.dispatchEvent(new CustomEvent('lower-threshold'));
     }
   }
+
   /**
    * Clear the upper and lower threshold states.
    *
@@ -252,16 +254,4 @@ export class ArcScrollThreshold extends ArcScrollTargetMixin(LitElement) {
     this._upperTriggered = false;
     this._lowerTriggered = false;
   }
-
-  /**
-   * Fires when the lower threshold has been reached.
-   *
-   * @event lower-threshold
-   */
-
-  /**
-   * Fires when the upper threshold has been reached.
-   *
-   * @event upper-threshold
-   */
 }

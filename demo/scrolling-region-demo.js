@@ -56,7 +56,7 @@ class ScrollingRegionDemo extends LitElement {
 
   render() {
     return html`
-    <arc-scroll-threshold lowerthreshold="500" @lower-threshold="${this.loadMoreData}">
+    <arc-scroll-threshold lowerThreshold="500" @lower-threshold="${this.loadMoreData}">
       <div class="toolbar">iron-scroll-threshold using a scrolling region</div>
       <sample-content .size="${this.size}"></sample-content>
       <div class="loader">Fetching new items...</div>

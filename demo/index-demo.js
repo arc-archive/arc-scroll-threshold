@@ -81,8 +81,8 @@ class IndexDemo extends LitElement {
 
     <!-- scroll-target uses the document scroll -->
     <arc-scroll-threshold
-      scrolltarget="document"
-      lowerthreshold="500"
+      scrollTarget="document"
+      lowerThreshold="500"
       @lower-threshold="${this.loadMoreData}"
       @lower-changed="${this._lowerChanged}"
       @upper-changed="${this._upperChanged}">

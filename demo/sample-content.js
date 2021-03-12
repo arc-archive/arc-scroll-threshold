@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { html, css, LitElement } from 'lit-element';
 
 const loremIpsumStrings = [
@@ -63,8 +64,8 @@ class SampleContent extends LitElement {
     const { size, label, padding, margin, boxShadow } = this;
     const arr = new Array(size);
     arr.fill(0);
-    const itemStyle = 'box-shadow: ' + boxShadow + '; padding: ' + padding +
-      '; margin: ' + margin + '; border-radius: 5px; background-color: #fff; color: #757575;';
+    const itemStyle = `box-shadow: ${  boxShadow  }; padding: ${  padding 
+      }; margin: ${  margin  }; border-radius: 5px; background-color: #fff; color: #757575;`;
     const innerStyle = 'display: inline-block; height: 64px; width: 64px; ' +
       'border-radius: 50%; background: #ddd; line-height: 64px; font-size: 30px; color: #555; text-align: center;';
     return html`
