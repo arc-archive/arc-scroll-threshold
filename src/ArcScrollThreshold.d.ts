@@ -8,6 +8,7 @@ import {ArcScrollTargetMixin} from '@advanced-rest-client/arc-scroll-target-mixi
  * @fires lower-changed
  * @fires upper-threshold
  * @fires lower-threshold
+ * @deprecated Use the `@anypoint-web-components/awc` module instead.
  */
  export class ArcScrollThreshold extends ArcScrollTargetMixin(LitElement) {
   static get styles(): CSSResult;

@@ -1,4 +1,8 @@
-# arc-scroll-threshold
+# DEPRECATED
+
+Use the `@anypoint-web-components/awc` module instead.
+
+-----
 
 This is a port of [iron-scroll-threshold](https://github.com/PolymerElements/iron-scroll-threshold) that works with LitElement and plain WC.
 
